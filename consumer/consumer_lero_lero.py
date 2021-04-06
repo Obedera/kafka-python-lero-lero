@@ -1,10 +1,12 @@
 from kafka import KafkaConsumer, OffsetAndMetadata, TopicPartition
-import json
+import json, sys, os
+sys.path.append(f'{os.path.split(os.environ["VIRTUAL_ENV"])[0]}/zookeeper')
+from zookeeper import get_kafka_broker
 
 
 consumer = KafkaConsumer('topico_lero_ok',
                          group_id='grupo-1-lero-lero',
-                         bootstrap_servers=['192.168.0.17:9091', '192.168.0.17:9092', '192.168.0.17:9093'],
+                         bootstrap_servers=get_kafka_broker(),
                          auto_offset_reset='earliest', enable_auto_commit=False)
 
 

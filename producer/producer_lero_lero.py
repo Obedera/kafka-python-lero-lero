@@ -1,8 +1,13 @@
 from kafka import KafkaProducer
-import json
+import json, sys, os
 from util_lero_lero import gerar_lero_lero
 
-producer = KafkaProducer(bootstrap_servers=['192.168.0.17:9091', '192.168.0.17:9092', '192.168.0.17:9093'])
+sys.path.append(f'{os.path.split(os.environ["VIRTUAL_ENV"])[0]}/zookeeper')
+
+from zookeeper import get_kafka_broker
+
+
+producer = KafkaProducer(bootstrap_servers=get_kafka_broker())
 
 i = 0
 while i<10:
